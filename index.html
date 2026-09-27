@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CyberGuard AI</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- ================= BACKGROUND EFFECTS ================= -->
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+
+    <div class="app">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <header class="topbar">
+
+            <div class="brand">
+
+                <div class="brand-logo">
+                    🛡️
+                </div>
+
+                <div>
+
+                    <h1>
+                        CyberGuard <span>AI</span>
+                    </h1>
+
+                    <p>
+                        Multi-Channel Digital Protection
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <!-- View Switch -->
+
+                <div class="view-switch">
+
+                    <button id="mobileBtn"
+                            onclick="setView('mobile')">
+
+                        📱 Mobile
+
+                    </button>
+
+
+                    <button id="desktopBtn"
+                            onclick="setView('desktop')">
+
+                        💻 Desktop
+
+                    </button>
+
+                </div>
+
+
+                <!-- Protection Status -->
+
+                <div class="live-status">
+
+                    <span class="status-pulse"></span>
+
+                    <span>
+                        Protection Active
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= MAIN ================= -->
+
+        <main>
+
+
+            <!-- ================= HERO ================= -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+
+                    <div class="hero-badge">
+
+                        <span class="badge-dot"></span>
+
+                        AI-POWERED PROTECTION
+
+                    </div>
+
+
+                    <h2>
+
+                        Stay ahead of
+
+                        <span>
+                            digital scams.
+                        </span>
+
+                    </h2>
+
+
+                    <p>
+
+                        CyberGuard AI analyzes calls, messages,
+                        emails and URLs to identify suspicious
+                        activity and provide explainable risk alerts.
+
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+
+                        <button class="primary-btn"
+                                onclick="scrollToProduction()">
+
+                            <span>▶</span>
+
+                            Run Protection Demo
+
+                        </button>
+
+
+                        <button class="secondary-btn"
+                                onclick="scrollToFeatures()">
+
+                            Explore Features
+
+                            <span>
+                                ↓
+                            </span>
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ================= SECURITY ORB ================= -->
+
+                <div class="security-visual">
+
+
+                    <div class="orb-ring ring-one"></div>
+
+                    <div class="orb-ring ring-two"></div>
+
+                    <div class="orb-ring ring-three"></div>
+
+
+                    <div class="security-orb">
+
+
+                        <div class="orb-shield">
+
+                            🛡️
+
+                        </div>
+
+
+                        <div class="orb-text">
+
+                            <strong>
+                                SECURE
+                            </strong>
+
+                            <small>
+                                AI MONITORING
+                            </small>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="floating-signal signal-one">
+                        📞
+                    </div>
+
+                    <div class="floating-signal signal-two">
+                        💬
+                    </div>
+
+                    <div class="floating-signal signal-three">
+                        🔗
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= LIVE MONITOR ================= -->
+
+            <section class="monitor-card">
+
+
+                <div class="monitor-header">
+
+
+                    <div>
+
+                        <span class="small-label">
+                            LIVE SECURITY MONITOR
+                        </span>
+
+                        <h2>
+                            Protection Overview
+                        </h2>
+
+                    </div>
+
+
+                    <div class="monitor-live">
+
+                        <span></span>
+
+                        LIVE
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="monitor-grid">
+
+
+                    <!-- VOICE -->
+
+                    <div class="monitor-item">
+
+                        <div class="monitor-icon call-icon">
+                            📞
+                        </div>
+
+                        <div class="monitor-info">
+
+                            <span>
+                                VOICE
+                            </span>
+
+                            <strong>
+                                Protected
+                            </strong>
+
+                        </div>
+
+                        <div class="monitor-check">
+                            ✓
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SMS -->
+
+                    <div class="monitor-item">
+
+                        <div class="monitor-icon sms-icon">
+                            💬
+                        </div>
+
+                        <div class="monitor-info">
+
+                            <span>
+                                SMS
+                            </span>
+
+                            <strong>
+                                Protected
+                            </strong>
+
+                        </div>
+
+                        <div class="monitor-check">
+                            ✓
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="monitor-item">
+
+                        <div class="monitor-icon email-icon">
+                            📧
+                        </div>
+
+                        <div class="monitor-info">
+
+                            <span>
+                                EMAIL
+                            </span>
+
+                            <strong>
+                                Protected
+                            </strong>
+
+                        </div>
+
+                        <div class="monitor-check">
+                            ✓
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- URL -->
+
+                    <div class="monitor-item">
+
+                        <div class="monitor-icon url-icon">
+                            🔗
+                        </div>
+
+                        <div class="monitor-info">
+
+                            <span>
+                                URL
+                            </span>
+
+                            <strong>
+                                Protected
+                            </strong>
+
+                        </div>
+
+                        <div class="monitor-check">
+                            ✓
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= SECURITY ACTIVITY ================= -->
+
+            <section class="section"
+                     id="activity">
+
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <span class="small-label">
+                            TODAY
+                        </span>
+
+                        <h2>
+                            Security Activity
+                        </h2>
+
+                    </div>
+
+
+                    <span class="view-all">
+                        Live data simulation
+                    </span>
+
+
+                </div>
+
+
+
+                <div class="activity-grid">
+
+
+                    <!-- CALLS -->
+
+                    <div class="activity-card">
+
+
+                        <div class="activity-top">
+
+                            <div class="activity-icon">
+                                📞
+                            </div>
+
+                            <span class="safe-badge">
+                                3 suspicious
+                            </span>
+
+                        </div>
+
+
+                        <h3 class="counter"
+                            data-target="12">
+
+                            0
+
+                        </h3>
+
+
+                        <p>
+                            Calls analyzed
+                        </p>
+
+
+                        <div class="mini-bar">
+
+                            <span style="width:72%"></span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- SMS -->
+
+                    <div class="activity-card">
+
+
+                        <div class="activity-top">
+
+                            <div class="activity-icon">
+                                💬
+                            </div>
+
+                            <span class="safe-badge">
+                                4 suspicious
+                            </span>
+
+                        </div>
+
+
+                        <h3 class="counter"
+                            data-target="24">
+
+                            0
+
+                        </h3>
+
+
+                        <p>
+                            Messages analyzed
+                        </p>
+
+
+                        <div class="mini-bar">
+
+                            <span style="width:82%"></span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- URL -->
+
+                    <div class="activity-card">
+
+
+                        <div class="activity-top">
+
+                            <div class="activity-icon">
+                                🔗
+                            </div>
+
+                            <span class="danger-badge">
+                                2 suspicious
+                            </span>
+
+                        </div>
+
+
+                        <h3 class="counter"
+                            data-target="8">
+
+                            0
+
+                        </h3>
+
+
+                        <p>
+                            URLs analyzed
+                        </p>
+
+
+                        <div class="mini-bar danger">
+
+                            <span style="width:48%"></span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="activity-card">
+
+
+                        <div class="activity-top">
+
+                            <div class="activity-icon">
+                                📧
+                            </div>
+
+                            <span class="warning-badge">
+                                1 suspicious
+                            </span>
+
+                        </div>
+
+
+                        <h3 class="counter"
+                            data-target="10">
+
+                            0
+
+                        </h3>
+
+
+                        <p>
+                            Emails analyzed
+                        </p>
+
+
+                        <div class="mini-bar warning">
+
+                            <span style="width:60%"></span>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= FEATURES ================= -->
+
+            <section class="section"
+                     id="features">
+
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <span class="small-label">
+                            CORE CAPABILITIES
+                        </span>
+
+                        <h2>
+                            Protection Features
+                        </h2>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="features-grid">
+
+
+                    <!-- VOICE -->
+
+                    <div class="feature-card"
+                         onclick="showFeature('voice')">
+
+
+                        <div class="feature-number">
+                            01
+                        </div>
+
+
+                        <div class="feature-icon large">
+                            📞
+                        </div>
+
+
+                        <h3>
+                            Voice Protection
+                        </h3>
+
+
+                        <p>
+
+                            Detect AI-generated voices and
+                            suspicious voice-based scam patterns.
+
+                        </p>
+
+
+                        <div class="feature-footer">
+
+                            <span>
+                                AI Voice Detection
+                            </span>
+
+                            <span>
+                                →
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- SMS -->
+
+                    <div class="feature-card"
+                         onclick="showFeature('sms')">
+
+
+                        <div class="feature-number">
+                            02
+                        </div>
+
+
+                        <div class="feature-icon large">
+                            💬
+                        </div>
+
+
+                        <h3>
+                            SMS Scam Detection
+                        </h3>
+
+
+                        <p>
+
+                            Identify suspicious messages,
+                            urgent requests and phishing patterns.
+
+                        </p>
+
+
+                        <div class="feature-footer">
+
+                            <span>
+                                Message Analysis
+                            </span>
+
+                            <span>
+                                →
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="feature-card"
+                         onclick="showFeature('email')">
+
+
+                        <div class="feature-number">
+                            03
+                        </div>
+
+
+                        <div class="feature-icon large">
+                            📧
+                        </div>
+
+
+                        <h3>
+                            Email Protection
+                        </h3>
+
+
+                        <p>
+
+                            Analyze emails for phishing,
+                            impersonation and suspicious content.
+
+                        </p>
+
+
+                        <div class="feature-footer">
+
+                            <span>
+                                Phishing Detection
+                            </span>
+
+                            <span>
+                                →
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- URL -->
+
+                    <div class="feature-card"
+                         onclick="showFeature('url')">
+
+
+                        <div class="feature-number">
+                            04
+                        </div>
+
+
+                        <div class="feature-icon large">
+                            🔗
+                        </div>
+
+
+                        <h3>
+                            URL Protection
+                        </h3>
+
+
+                        <p>
+
+                            Analyze suspicious links and
+                            domain reputation before users proceed.
+
+                        </p>
+
+
+                        <div class="feature-footer">
+
+                            <span>
+                                Threat Intelligence
+                            </span>
+
+                            <span>
+                                →
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- RISK -->
+
+                    <div class="feature-card feature-highlight"
+                         onclick="showFeature('risk')">
+
+
+                        <div class="feature-number">
+                            05
+                        </div>
+
+
+                        <div class="feature-icon large">
+                            🧠
+                        </div>
+
+
+                        <h3>
+                            Unified Risk Engine
+                        </h3>
+
+
+                        <p>
+
+                            Combines multiple threat signals
+                            into one explainable risk score.
+
+                        </p>
+
+
+                        <div class="feature-footer">
+
+                            <span>
+                                Risk Score: 0–100
+                            </span>
+
+                            <span>
+                                →
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= HOW CYBERGUARD WORKS ================= -->
+
+            <section class="section how-section"
+                     id="how">
+
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <span class="small-label">
+                            PROTECTION FLOW
+                        </span>
+
+                        <h2>
+                            How CyberGuard Works
+                        </h2>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="flow-container">
+
+
+                    <div class="flow-line"></div>
+
+
+
+                    <!-- STEP 1 -->
+
+                    <div class="flow-step">
+
+
+                        <div class="flow-icon">
+                            📥
+                        </div>
+
+
+                        <span>
+                            01
+                        </span>
+
+
+                        <h3>
+                            Input
+                        </h3>
+
+
+                        <p>
+                            Call, SMS, email or URL
+                        </p>
+
+
+                    </div>
+
+
+
+                    <!-- STEP 2 -->
+
+                    <div class="flow-step">
+
+
+                        <div class="flow-icon">
+                            🤖
+                        </div>
+
+
+                        <span>
+                            02
+                        </span>
+
+
+                        <h3>
+                            AI Analysis
+                        </h3>
+
+
+                        <p>
+                            Detect suspicious signals
+                        </p>
+
+
+                    </div>
+
+
+
+                    <!-- STEP 3 -->
+
+                    <div class="flow-step">
+
+
+                        <div class="flow-icon">
+                            🔎
+                        </div>
+
+
+                        <span>
+                            03
+                        </span>
+
+
+                        <h3>
+                            Verification
+                        </h3>
+
+
+                        <p>
+                            Check threat intelligence
+                        </p>
+
+
+                    </div>
+
+
+
+                    <!-- STEP 4 -->
+
+                    <div class="flow-step">
+
+
+                        <div class="flow-icon">
+                            🧠
+                        </div>
+
+
+                        <span>
+                            04
+                        </span>
+
+
+                        <h3>
+                            Risk Engine
+                        </h3>
+
+
+                        <p>
+                            Calculate unified score
+                        </p>
+
+
+                    </div>
+
+
+
+                    <!-- STEP 5 -->
+
+                    <div class="flow-step">
+
+
+                        <div class="flow-icon">
+                            🚨
+                        </div>
+
+
+                        <span>
+                            05
+                        </span>
+
+
+                        <h3>
+                            Protection
+                        </h3>
+
+
+                        <p>
+                            Alert and recommend action
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================================================= -->
+            <!--              PRODUCTION IN ACTION                 -->
+            <!-- ================================================= -->
+
+            <section class="section production-section"
+                     id="production">
+
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <span class="small-label">
+                            PRODUCTION IN ACTION
+                        </span>
+
+                        <h2>
+                            See CyberGuard AI in Action
+                        </h2>
+
+                        <p class="production-description">
+
+                            Experience how CyberGuard AI detects
+                            and prevents a multi-channel scam
+                            before the user becomes a victim.
+
+                        </p>
+
+                    </div>
+
+
+                    <span class="view-all">
+                        Simulated Scam Scenario
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- ================= HTML DEMO ================= -->
+
+                <div class="production-demo">
+
+
+                    <iframe
+
+                        src="scam-scenario/scam-scenario.html"
+
+                        title="CyberGuard AI Scam Scenario"
+
+                        loading="lazy"
+
+                        allowfullscreen>
+
+                    </iframe>
+
+
+                </div>
+
+
+                <!-- ================= DISCLAIMER ================= -->
+
+                <div class="prototype-note">
+
+                    <span>
+                        ⓘ
+                    </span>
+
+                    <p>
+
+                        <strong>
+                            Prototype Demonstration
+                        </strong>
+
+                        Security events shown in this demo
+                        are simulated to demonstrate the
+                        proposed CyberGuard AI workflow.
+
+                    </p>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ================= RECENT ALERTS ================= -->
+
+            <section class="section"
+                     id="alerts">
+
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <span class="small-label">
+                            SECURITY EVENTS
+                        </span>
+
+                        <h2>
+                            Recent Alerts
+                        </h2>
+
+                    </div>
+
+
+                    <button class="clear-btn"
+                            onclick="clearAlerts()">
+
+                        Clear
+
+                    </button>
+
+
+                </div>
+
+
+
+                <div id="alertsList"
+                     class="alerts-list">
+
+
+                    <!-- CALL -->
+
+                    <div class="alert-item high">
+
+
+                        <div class="alert-icon">
+                            📞
+                        </div>
+
+
+                        <div class="alert-info">
+
+
+                            <strong>
+                                Suspicious Call Detected
+                            </strong>
+
+
+                            <p>
+                                Possible social-engineering pattern
+                            </p>
+
+
+                            <small>
+                                Just now
+                            </small>
+
+
+                        </div>
+
+
+                        <span class="risk-tag">
+                            HIGH
+                        </span>
+
+
+                    </div>
+
+
+
+                    <!-- SMS -->
+
+                    <div class="alert-item medium">
+
+
+                        <div class="alert-icon">
+                            💬
+                        </div>
+
+
+                        <div class="alert-info">
+
+
+                            <strong>
+                                Suspicious SMS
+                            </strong>
+
+
+                            <p>
+                                Urgent payment request detected
+                            </p>
+
+
+                            <small>
+                                8 min ago
+                            </small>
+
+
+                        </div>
+
+
+                        <span class="risk-tag">
+                            MEDIUM
+                        </span>
+
+
+                    </div>
+
+
+
+                    <!-- URL -->
+
+                    <div class="alert-item critical">
+
+
+                        <div class="alert-icon">
+                            🔗
+                        </div>
+
+
+                        <div class="alert-info">
+
+
+                            <strong>
+                                Dangerous URL
+                            </strong>
+
+
+                            <p>
+                                Suspicious domain reputation
+                            </p>
+
+
+                            <small>
+                                17 min ago
+                            </small>
+
+
+                        </div>
+
+
+                        <span class="risk-tag">
+                            CRITICAL
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= FOOTER ================= -->
+
+            <footer>
+
+
+                <div class="footer-brand">
+                    🛡️ CyberGuard AI
+                </div>
+
+
+                <p>
+                    AI-Powered Multi-Channel Scam Protection
+                </p>
+
+
+                <span>
+                    Prototype • Demonstration Interface
+                </span>
+
+
+            </footer>
+
+
+        </main>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!--                  FEATURE MODAL                    -->
+    <!-- ================================================= -->
+
+    <div id="featureModal"
+         class="modal">
+
+
+        <div class="modal-box">
+
+
+            <button class="close-modal"
+                    onclick="closeFeature()">
+
+                ×
+
+            </button>
+
+
+            <div id="modalIcon"
+                 class="modal-icon">
+
+                🛡️
+
+            </div>
+
+
+            <span id="modalLabel"
+                  class="small-label">
+
+                CYBERGUARD AI
+
+            </span>
+
+
+            <h2 id="modalTitle">
+                Protection
+            </h2>
+
+
+            <p id="modalDescription">
+                Protection information.
+            </p>
+
+
+            <div id="modalSignals"
+                 class="modal-signals">
+
+            </div>
+
+
+            <button class="modal-action"
+                    onclick="closeFeature()">
+
+                Got it
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="script.js"></script>
+
+
+    <!-- ================= PRODUCTION DEMO CSS ================= -->
+
+    <style>
+
+        /* ================= PRODUCTION SECTION ================= */
+
+        .production-section {
+
+            padding-top: 80px;
+            padding-bottom: 80px;
+
+        }
+
+
+        .production-description {
+
+            max-width: 720px;
+            margin-top: 12px;
+            line-height: 1.7;
+            color: #9aa9bd;
+
+        }
+
+
+        /* ================= HTML DEMO FRAME ================= */
+
+        .production-demo {
+
+            width: 100%;
+
+            margin-top: 35px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            background: #050b16;
+
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.35);
+
+        }
+
+
+        .production-demo iframe {
+
+            display: block;
+
+            width: 100%;
+
+            height: 850px;
+
+            border: none;
+
+            background: #050b16;
+
+        }
+
+
+        /* ================= PROTOTYPE NOTE ================= */
+
+        .prototype-note {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 12px;
+
+            margin-top: 18px;
+
+            padding: 16px 20px;
+
+            border-radius: 14px;
+
+            border: 1px solid rgba(77, 208, 225, 0.12);
+
+            background: rgba(20, 40, 65, 0.45);
+
+            color: #9aa9bd;
+
+        }
+
+
+        .prototype-note > span {
+
+            font-size: 20px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .prototype-note p {
+
+            margin: 0;
+
+            line-height: 1.6;
+
+        }
+
+
+        .prototype-note strong {
+
+            color: #ffffff;
+
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .production-demo iframe {
+
+                height: 700px;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .production-section {
+
+                padding-top: 55px;
+
+                padding-bottom: 55px;
+
+            }
+
+
+            .production-demo {
+
+                margin-top: 24px;
+
+                border-radius: 18px;
+
+            }
+
+
+            .production-demo iframe {
+
+                height: 650px;
+
+            }
+
+
+            .prototype-note {
+
+                padding: 14px 16px;
+
+                font-size: 13px;
+
+            }
+
+        }
+
+    </style>
+
+
+</body>
+
+</html>
