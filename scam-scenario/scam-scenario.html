@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CyberGuard AI — Demo</title>
+<style>
+  :root{
+    --bg-0:#070b14;
+    --bg-1:#0d1424;
+    --panel:#131b2e;
+    --panel-2:#182236;
+    --line:#26314a;
+    --text:#eef1f8;
+    --muted:#8b93a9;
+    --brand:#4c7eff;
+    --brand-soft:#4c7eff26;
+    --safe:#31d0a0;
+    --safe-soft:#31d0a026;
+    --warn:#ffb84d;
+    --warn-soft:#ffb84d26;
+    --risk:#ff4d6d;
+    --risk-soft:#ff4d6d26;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    min-height:100%;
+    background:
+      radial-gradient(900px 500px at 50% -10%, #16224022 0%, transparent 60%),
+      linear-gradient(180deg,var(--bg-0),var(--bg-1));
+    color:var(--text);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+    padding:32px 16px calc(32px + env(safe-area-inset-bottom,0px));
+  }
+
+  .stage-label{
+    font-size:12.5px;
+    letter-spacing:.02em;
+    color:var(--muted);
+  }
+  .stage-label b{color:var(--text);font-weight:600;}
+
+  /* ---- Phone frame ---- */
+  .phone{
+    width:340px;
+    height:702px;
+    background:#000;
+    border-radius:46px;
+    padding:12px;
+    box-shadow:0 30px 80px -20px #000c, 0 0 0 1px #1c2334, inset 0 0 0 2px #2a3350;
+    position:relative;
+  }
+  .screen{
+    width:100%;
+    height:100%;
+    border-radius:36px;
+    overflow:hidden;
+    position:relative;
+    background:var(--bg-1);
+  }
+  .notch{
+    position:absolute;top:10px;left:50%;transform:translateX(-50%);
+    width:104px;height:22px;background:#000;border-radius:14px;z-index:50;
+  }
+  .statusbar{
+    height:46px;display:flex;align-items:flex-end;justify-content:space-between;
+    padding:0 24px 6px;font-size:13px;font-weight:600;color:var(--text);
+  }
+
+  /* ---- Scene layers ---- */
+  .scene{
+    position:absolute;inset:0;
+    opacity:0;
+    transform:scale(1.02);
+    transition:opacity .5s ease, transform .6s ease;
+    pointer-events:none;
+    display:flex;flex-direction:column;
+  }
+  .scene.active{
+    opacity:1;
+    transform:scale(1);
+    pointer-events:auto;
+    z-index:5;
+  }
+
+  .content{flex:1;display:flex;flex-direction:column;padding:0 18px 22px;}
+
+  /* Home / call incoming */
+  .caller-block{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+  .avatar{
+    width:96px;height:96px;border-radius:50%;
+    background:linear-gradient(155deg,#2a3559,#151d31);
+    display:flex;align-items:center;justify-content:center;
+    font-size:34px;font-weight:600;color:var(--muted);
+    border:1px solid var(--line);
+    margin-bottom:10px;
+  }
+  .caller-name{font-size:21px;font-weight:600;}
+  .caller-sub{font-size:13.5px;color:var(--muted);}
+  .call-actions{display:flex;justify-content:space-between;padding:0 30px 18px;}
+  .call-btn{
+    width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:24px;color:#fff;
+  }
+  .call-btn.decline{background:var(--risk);}
+  .call-btn.accept{background:var(--safe);}
+
+  /* In-call */
+  .incall-top{flex:1;display:flex;flex-direction:column;align-items:center;padding-top:36px;gap:4px;}
+  .timer{font-size:13px;color:var(--muted);letter-spacing:.03em;}
+
+  .shield-banner{
+    margin:14px 16px 0;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:12px 14px;
+    display:flex;gap:10px;align-items:flex-start;
+    box-shadow:0 8px 24px -12px #000a;
+  }
+  .shield-banner.pulse{animation:pulseGlow 1.6s ease-in-out infinite;}
+  @keyframes pulseGlow{
+    0%,100%{box-shadow:0 8px 24px -12px #000a;}
+    50%{box-shadow:0 8px 30px -8px var(--brand-soft);}
+  }
+  .icon-dot{
+    width:30px;height:30px;min-width:30px;border-radius:9px;
+    display:flex;align-items:center;justify-content:center;font-size:15px;
+  }
+  .icon-dot.brand{background:var(--brand-soft);color:var(--brand);}
+  .icon-dot.safe{background:var(--safe-soft);color:var(--safe);}
+  .icon-dot.warn{background:var(--warn-soft);color:var(--warn);}
+  .icon-dot.risk{background:var(--risk-soft);color:var(--risk);}
+  .banner-title{font-size:13.5px;font-weight:600;}
+  .banner-sub{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4;}
+
+  .scan-line{
+    height:3px;border-radius:2px;background:var(--line);overflow:hidden;margin-top:9px;
+  }
+  .scan-line i{
+    display:block;height:100%;width:40%;background:var(--brand);border-radius:2px;
+    animation:scan 1.3s ease-in-out infinite;
+  }
+  @keyframes scan{0%{transform:translateX(-100%);}100%{transform:translateX(350%);}}
+
+  .tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+  .tag{
+    font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);
+  }
+  .tag.flag{border-color:var(--warn-soft);color:var(--warn);background:var(--warn-soft);}
+
+  /* SMS overlay */
+  .sms-toast{
+    position:absolute;left:12px;right:12px;top:56px;z-index:40;
+    background:var(--panel-2);border:1px solid var(--line);border-radius:16px;
+    padding:12px;display:flex;gap:10px;
+    box-shadow:0 12px 30px -10px #000c;
+  }
+  .sms-toast .badge{width:34px;height:34px;border-radius:10px;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;}
+  .sms-toast .sender{font-size:12.5px;font-weight:600;}
+  .sms-toast .msg{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4;}
+  .sms-toast .link{color:var(--brand);text-decoration:underline;}
+
+  .alert-card{
+    margin:14px 16px 0;border-radius:16px;
+    background:var(--risk-soft);border:1px solid #ff4d6d55;
+    padding:13px 14px;
+  }
+  .alert-card .banner-title{color:var(--risk);}
+  .alert-card ul{margin:8px 0 0;padding-left:18px;font-size:12px;color:#f4c3cd;line-height:1.7;}
+
+  /* URL analysis */
+  .url-bar{
+    margin:16px 16px 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:10px 12px;font-size:12px;color:var(--muted);word-break:break-all;
+  }
+  .verdict-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
+  .risk-ring{
+    width:150px;height:150px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    background:conic-gradient(var(--risk) calc(var(--pct,91)*1%), #202a42 0);
+    position:relative;
+  }
+  .risk-ring::before{
+    content:"";position:absolute;inset:10px;border-radius:50%;background:var(--bg-1);
+  }
+  .risk-ring .num{position:relative;font-size:34px;font-weight:700;}
+  .risk-ring .lbl{position:relative;font-size:11px;color:var(--muted);}
+  .verdict-title{font-size:16px;font-weight:700;color:var(--risk);}
+  .verdict-sub{font-size:12.5px;color:var(--muted);text-align:center;padding:0 24px;}
+
+  /* Final combined risk */
+  .signals-row{display:flex;gap:8px;margin:14px 16px 0;}
+  .signal-chip{
+    flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:9px 8px;text-align:center;
+  }
+  .signal-chip .ic{font-size:16px;}
+  .signal-chip .t{font-size:10.5px;color:var(--muted);margin-top:3px;}
+  .signal-chip .v{font-size:11px;font-weight:600;color:var(--risk);margin-top:1px;}
+
+  .score-block{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+  .score-num{font-size:52px;font-weight:800;color:var(--risk);line-height:1;}
+  .score-lbl{font-size:12.5px;letter-spacing:.06em;color:var(--risk);font-weight:700;}
+  .score-crit{
+    margin-top:6px;font-size:11px;padding:5px 12px;border-radius:999px;
+    background:var(--risk-soft);color:var(--risk);border:1px solid #ff4d6d55;font-weight:600;
+  }
+
+  .action-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px 18px;}
+  .action-btn{
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:11px 8px;font-size:11.5px;font-weight:600;text-align:center;color:var(--text);
+  }
+  .action-btn.primary{background:var(--risk);border-color:var(--risk);color:#fff;}
+
+  /* End card */
+  .endcard{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:radial-gradient(circle at 50% 30%,#182645,var(--bg-1) 70%);}
+  .logo-mark{
+    width:74px;height:74px;border-radius:20px;
+    background:linear-gradient(155deg,var(--brand),#1c3aa8);
+    display:flex;align-items:center;justify-content:center;font-size:32px;
+    box-shadow:0 16px 40px -12px #4c7eff66;
+  }
+  .brand-name{font-size:22px;font-weight:700;letter-spacing:.01em;}
+  .tagline{font-size:13px;color:var(--muted);letter-spacing:.04em;}
+
+  /* ---- Controls ---- */
+  .controls{
+    width:340px;display:flex;flex-direction:column;gap:10px;
+  }
+  .timeline{
+    height:5px;background:var(--panel-2);border-radius:99px;overflow:hidden;border:1px solid var(--line);
+  }
+  .timeline-fill{
+    height:100%;width:0%;background:linear-gradient(90deg,var(--brand),var(--safe));
+    transition:width .1s linear;
+  }
+  .ctrl-row{display:flex;align-items:center;justify-content:space-between;}
+  .ctrl-left{display:flex;align-items:center;gap:10px;}
+  .ctrl-btn{
+    background:var(--panel);border:1px solid var(--line);color:var(--text);
+    width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:14px;cursor:pointer;
+  }
+  .ctrl-btn:hover{border-color:var(--brand);}
+  .time-txt{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .hint{font-size:11.5px;color:var(--muted);text-align:center;}
+</style>
+</head>
+<body>
+
+  <div class="stage-label" id="stageLabel"><b>Scene 1/8</b> — Incoming call</div>
+
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="screen">
+
+      <!-- Scene 1: incoming call -->
+      <div class="scene" data-scene="0">
+        <div class="statusbar"><span>9:41</span><span>●●●●  5G  🔋</span></div>
+        <div class="content">
+          <div class="caller-block">
+            <div class="avatar">?</div>
+            <div class="caller-name">Meridian Trust Bank</div>
+            <div class="caller-sub">Incoming call · Unknown number</div>
+          </div>
+          <div class="call-actions">
+            <div class="call-btn decline">✕</div>
+            <div class="call-btn accept">✆</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 2: call connected, CyberGuard activates -->
+      <div class="scene" data-scene="1">
+        <div class="statusbar"><span>9:41</span><span>●●●●  5G  🔋</span></div>
+        <div class="content">
+          <div class="incall-top">
+            <div class="avatar">?</div>
+            <div class="caller-name">Meridian Trust Bank</div>
+            <div class="timer">00:07</div>
+          </div>
+          <div class="shield-banner pulse">
+            <div class="icon-dot brand">🛡️</div>
+            <div>
+              <div class="banner-title">CyberGuard Call Protection — Active</div>
+              <div class="banner-sub">Listening for social‑engineering patterns in real time.</div>
+              <div class="scan-line"><i></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 3: suspicious pattern detected -->
+      <div class="scene" data-scene="2">
+        <div class="statusbar"><span>9:41</span><span>●●●●  5G  🔋</span></div>
+        <div class="content">
+          <div class="incall-top">
+            <div class="avatar">?</div>
+            <div class="caller-name">Meridian Trust Bank</div>
+            <div class="timer">00:24</div>
+          </div>
+          <div class="shield-banner">
+            <div class="icon-dot warn">⚠️</div>
+            <div>
+              <div class="banner-title">Suspicious pattern detected</div>
+              <div class="banner-sub">Caller is pushing urgency and requesting account verification.</div>
+              <div class="tag-row">
+                <span class="tag flag">Urgency pressure</span>
+                <span class="tag flag">Payment request</span>
+                <span class="tag flag">ID mismatch</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 4: SMS arrives mid-call -->
+      <div class="scene" data-scene="3">
+        <div class="statusbar"><span>9:42</span><span>●●●●  5G  🔋</span></div>
+        <div class="sms-toast">
+          <div class="badge">SMS</div>
+          <div>
+            <div class="sender">"MeridianBank" · now</div>
+            <div class="msg">Your account is on hold. Verify now: <span class="link">meridian-secure-verify.co/id82</span></div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="incall-top" style="padding-top:120px;">
+            <div class="timer">00:41 · call in progress</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 5: warning not to click / share OTP -->
+      <div class="scene" data-scene="4">
+        <div class="statusbar"><span>9:42</span><span>●●●●  5G  🔋</span></div>
+        <div class="content">
+          <div class="alert-card" style="margin-top:70px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div class="icon-dot risk">⛔</div>
+              <div>
+                <div class="banner-title">Do not interact with this message</div>
+                <ul>
+                  <li>Don't tap the link</li>
+                  <li>Don't share your OTP</li>
+                  <li>Don't confirm any payment</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 6: URL tapped, analyzing -->
+      <div class="scene" data-scene="5">
+        <div class="statusbar"><span>9:42</span><span>●●●●  5G  🔋</span></div>
+        <div class="url-bar">meridian-secure-verify.co/id82</div>
+        <div class="verdict-wrap">
+          <div class="risk-ring" style="--pct:91;">
+            <div class="num">91</div>
+            <div class="lbl">RISK SCORE</div>
+          </div>
+          <div class="verdict-title">Suspicious URL — Critical Risk</div>
+          <div class="verdict-sub">Domain registered 2 days ago · impersonates a known bank brand · no valid security certificate.</div>
+        </div>
+      </div>
+
+      <!-- Scene 7: combined risk score -->
+      <div class="scene" data-scene="6">
+        <div class="statusbar"><span>9:42</span><span>●●●●  5G  🔋</span></div>
+        <div class="signals-row">
+          <div class="signal-chip"><div class="ic">📞</div><div class="t">Call</div><div class="v">High risk</div></div>
+          <div class="signal-chip"><div class="ic">💬</div><div class="t">SMS</div><div class="v">Phishing</div></div>
+          <div class="signal-chip"><div class="ic">🔗</div><div class="t">URL</div><div class="v">Critical</div></div>
+        </div>
+        <div class="score-block">
+          <div class="score-num">91<span style="font-size:22px;">/100</span></div>
+          <div class="score-lbl">OVERALL RISK</div>
+          <div class="score-crit">CRITICAL</div>
+        </div>
+        <div class="action-grid">
+          <div class="action-btn primary">Stop Interaction</div>
+          <div class="action-btn">Do Not Share OTP</div>
+          <div class="action-btn">Do Not Transfer Money</div>
+          <div class="action-btn">Report</div>
+        </div>
+      </div>
+
+      <!-- Scene 8: end card -->
+      <div class="scene" data-scene="7">
+        <div class="endcard">
+          <div class="logo-mark">🛡️</div>
+          <div class="brand-name">CyberGuard AI</div>
+          <div class="tagline">Detect · Understand · Protect</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="timeline"><div class="timeline-fill" id="fill"></div></div>
+    <div class="ctrl-row">
+      <div class="ctrl-left">
+        <div class="ctrl-btn" id="playBtn">▶</div>
+        <div class="ctrl-btn" id="restartBtn">↺</div>
+      </div>
+      <div class="time-txt" id="timeTxt">0:00 / 0:40</div>
+    </div>
+    <div class="hint">Auto-plays through the full demo — start your screen recording, then press play.</div>
+  </div>
+
+<script>
+  const scenes = [
+    {label:"Incoming call", dur:3},
+    {label:"Call protection activates", dur:5},
+    {label:"Social-engineering pattern flagged", dur:5},
+    {label:"Phishing SMS arrives", dur:4},
+    {label:"Warning: don't click / share OTP", dur:5},
+    {label:"URL analysis — critical risk", dur:6},
+    {label:"Combined risk score: 91 CRITICAL", dur:7},
+    {label:"CyberGuard AI logo & tagline", dur:5},
+  ];
+  const total = scenes.reduce((a,s)=>a+s.dur,0);
+  const sceneEls = document.querySelectorAll('.scene');
+  const fill = document.getElementById('fill');
+  const timeTxt = document.getElementById('timeTxt');
+  const stageLabel = document.getElementById('stageLabel');
+  const playBtn = document.getElementById('playBtn');
+  const restartBtn = document.getElementById('restartBtn');
+
+  let elapsed = 0, playing = false, raf = null, last = null;
+
+  function fmt(s){ s=Math.max(0,s); return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
+
+  function render(){
+    let acc = 0, idx = 0;
+    for(let i=0;i<scenes.length;i++){
+      if(elapsed < acc + scenes[i].dur){ idx = i; break; }
+      acc += scenes[i].dur;
+      idx = i;
+    }
+    sceneEls.forEach(el=>el.classList.toggle('active', +el.dataset.scene === idx));
+    stageLabel.innerHTML = '<b>Scene '+(idx+1)+'/'+scenes.length+'</b> — '+scenes[idx].label;
+    fill.style.width = Math.min(100,(elapsed/total)*100)+'%';
+    timeTxt.textContent = fmt(elapsed)+' / '+fmt(total);
+  }
+
+  function tick(t){
+    if(!playing) return;
+    if(last===null) last=t;
+    const dt=(t-last)/1000; last=t;
+    elapsed += dt;
+    if(elapsed >= total){ elapsed = total; render(); pause(); return; }
+    render();
+    raf = requestAnimationFrame(tick);
+  }
+
+  function play(){ playing=true; last=null; playBtn.textContent='❚❚'; raf=requestAnimationFrame(tick); }
+  function pause(){ playing=false; playBtn.textContent='▶'; if(raf) cancelAnimationFrame(raf); }
+
+  playBtn.addEventListener('click', ()=> playing ? pause() : play());
+  restartBtn.addEventListener('click', ()=>{ elapsed=0; render(); if(!playing) play(); });
+
+  render();
+</script>
+</body>
+</html>
